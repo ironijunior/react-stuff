@@ -4,8 +4,8 @@ import SignUpForm from '../components/SignUpForm.jsx';
 
 class SignUpPage extends React.Component {
 
-  constructor(props) {
-    super(props);
+  constructor(props, context) {
+    super(props, context);
 
     this.state = {
       errors: {},
@@ -33,9 +33,36 @@ class SignUpPage extends React.Component {
   processForm(event) {
     event.preventDefault();
 
-    console.log('name', this.state.user.name);
-    console.log('email', this.state.user.email);
-    console.log('password', this.state.user.password);
+    const name = encodeURIComponent(this.state.user.name);
+    const email = encodeURIComponent(this.state.user.email);
+    const password = encodeURIComponent(this.state.user.password);
+    const formData = `name=${name}&email=${email}&password=${password}`;
+
+    const xhr = new XMLHttpRequest();
+    xhr.open('post', 'auth/signup');
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    xhr.responseType = 'json';
+    xhr.addEventListener('load', () => {
+        if (xhr.status === 200) {
+          // success
+          // change the component-container state
+          this.setState({
+            errors: {}
+          });
+
+          localStorage.setItem('successMessage', xhr.response.message);
+
+          this.context.router.replace('/login');
+        } else {
+          // failure
+          const errors = xhr.response.errors ? xhr.response.errors : {};
+          errors.summary = xhr.response.message;
+          this.setState({
+            errors
+          });
+        }
+    });
+    xhr.send(formData);
   }
 
   render() {
@@ -48,5 +75,9 @@ class SignUpPage extends React.Component {
     );
   }
 }
+
+SignUpPage.contextTypes = {
+  router: PropTypes.object.isRequired
+};
 
 export default SignUpPage;
