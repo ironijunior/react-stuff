@@ -6,7 +6,15 @@ In this version i'm not using Redux, just React.
 
 ### To start the backend:
 ```
+cd ./backend
 npm install
 npm run production
 ```
 * It's necessary to have the MongoDB installed.
+
+### To start the frontend:
+```
+cd ./frontend
+npm install
+npm run dev
+```
