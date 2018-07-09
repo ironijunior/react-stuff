@@ -2,7 +2,7 @@
 
 Simple Todo application using React.
 
-In this version i'm not using Redux, just React.
+In this version i'm NOT using Redux, just React.
 
 ### To start the backend:
 ```
