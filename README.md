@@ -1,3 +1,3 @@
 # react-stuffs
 
-Applications with React!
+Applications made with React!!
