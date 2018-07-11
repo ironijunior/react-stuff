@@ -1,8 +1,13 @@
 const BillingCycle = require('./billingCycle')
+const errorHandler = require('../common/errorHandler')
 
 BillingCycle.methods(['get', 'post', 'put', 'delete'])
 BillingCycle.updateOptions({ new: true, runValidators: true })
 
+//Apply errorHandler middleware
+BillingCycle.after('post', errorHandler).after('put', errorHandler)
+
+//Create different route called 'count'
 BillingCycle.route('count', (req, res, next) => {
     BillingCycle.count((error, value) => {
         if(error) {
@@ -13,6 +18,7 @@ BillingCycle.route('count', (req, res, next) => {
     })
 })
 
+//Create different route called 'summary'
 BillingCycle.route('summary', (req, res, next) => {
     BillingCycle.aggregate({
         $project: {credit: {$sum: "$credits.value"}, debit: {$sum: "$debits.value"}}
