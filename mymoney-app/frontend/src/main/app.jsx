@@ -1,4 +1,4 @@
-import '../common/template/dependencies'
+import '../common/template/utils/dependencies'
 
 import React from 'react'
 
