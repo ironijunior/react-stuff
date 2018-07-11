@@ -1,5 +1,10 @@
 import React, { Component } from 'react'
 
+import ContentHeader from '../common/template/contentHeader'
+import Content from '../common/template/content'
+
+import Row from '../common/layout/row'
+
 const BillingCycle = class BillingCycle extends Component {
 
     constructor(props) {
@@ -9,7 +14,12 @@ const BillingCycle = class BillingCycle extends Component {
     render() {
         return (
             <div>
-                <h1>Billyng Cycle</h1>
+                <ContentHeader title='Billing Cycle' subtitle='Small descr' />
+                <Content>
+                    <Row>
+                        Content
+                    </Row>
+                </Content>
             </div>
         )
     }
