@@ -13,11 +13,10 @@ export function getList() {
 export function create(values) {
     axios.post(URL, values)
         .then(resp => {
-            toastr.success('Success', 'Successful Operation!')
+            throwSuccess()
         })
         .catch(e => {
-            e.response.data.errors.forEach(
-                error => toastr.error('Error', error))
+            e.response.data.errors.forEach(error => throwError(error))
         })
 
     return {
@@ -25,6 +24,21 @@ export function create(values) {
     }
 }
 
-export function update(values) {
-    console.log(values)
+export function update(billing) {
+    axios.put(`${URL}/${billing._id}`, billing)
+        .then(resp => {
+            throwSuccess()
+        })
+        .catch(e => {
+            e.response.data.errors.forEach(error => throwError(error))
+        })
+    console.log(billing)
+}
+
+function throwError(error) {
+    toastr.error('Error', error)
+}
+
+function throwSuccess(msg = 'Successful Operation!') {
+    toastr.success('Success', msg)
 }
