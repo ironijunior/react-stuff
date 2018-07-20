@@ -3,6 +3,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
 import { getList } from '../billingCycle/billingCycleActions'
+import IconButton from '../common/template/iconButton';
 
 class BillingCycleList extends Component {
 
@@ -18,6 +19,10 @@ class BillingCycleList extends Component {
                 <td>{it.name}</td>
                 <td>{it.month}</td>
                 <td>{it.year}</td>
+                <td>
+                    <IconButton style='warning' icon='edit' />
+                    <IconButton style='danger' icon='trash-o' />
+                </td>
             </tr>
         ))
     }
@@ -30,6 +35,7 @@ class BillingCycleList extends Component {
                         <th>Name</th>
                         <th>Month</th>
                         <th>Year</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
