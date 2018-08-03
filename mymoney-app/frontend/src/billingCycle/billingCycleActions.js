@@ -5,6 +5,17 @@ import { showTabs, selectTab } from '../common/tab/tabActions'
 
 const URL = 'http://localhost:3003/api/billingCycles'
 
+const INITIAL_VALUES = {}
+
+export function init() {
+    return [
+        showTabs('tabList','tabCreate'),
+        selectTab('tabList'),
+        getList(),
+        initialize('billingCycleForm', INITIAL_VALUES)
+    ]
+}
+
 export function getList() {
     const request = axios.get(`${URL}/?sort=-month`)
     return {
@@ -18,7 +29,7 @@ export function create(values) {
         axios.post(URL, values)
             .then(resp => {
                 throwSuccess()
-                redirectToList(dispatch)
+                dispatch(init())
             })
             .catch(e => {
                 e.response.data.errors.forEach(error => throwError(error))
@@ -31,7 +42,7 @@ export function update(billing) {
         axios.put(`${URL}/${billing._id}`, billing)
             .then(resp => {
                 throwSuccess()
-                redirectToList(dispatch)
+                dispatch(init())
             })
             .catch(e => {
                 e.response.data.errors.forEach(error => throwError(error))
@@ -47,9 +58,16 @@ export function showUpdate(billing) {
     ]
 }
 
-export function deleteBillingCycle(billing) {
-    return {
-        type: 'DELETED_BILLING_CYCLE'
+export function remove(billing) {
+    return (dispatch) => {
+        axios.delete(`${URL}/${billing._id}`)
+            .then(resp => {
+                throwSuccess()
+                dispatch(init())
+            })
+            .catch(err => {
+                e.response.data.errors.forEach(error => throwError(error))
+            })
     }
 }
 
@@ -59,13 +77,4 @@ function throwError(error) {
 
 function throwSuccess(msg = 'Successful Operation!') {
     toastr.success('Success', msg)
-}
-
-function redirectToList(dispatch) {
-    dispatch([
-        resetForm('billingCycleForm'),
-        getList(),
-        selectTab('tabList'),
-        showTabs('tabList','tabCreate')
-    ])
 }
