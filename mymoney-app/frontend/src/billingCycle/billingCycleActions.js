@@ -37,10 +37,18 @@ export function remove(billing) {
 }
 
 export function showUpdate(billing) {
+    return showTab(billing, 'tabUpdate')
+}
+
+export function showDelete(billing) {
+    return showTab(billing, 'tabDelete')
+}
+
+function showTab(values, tabId) {
     return [
-        showTabs('tabUpdate'),
-        selectTab('tabUpdate'),
-        initialize('billingCycleForm', billing)
+        showTabs(tabId),
+        selectTab(tabId),
+        initialize('billingCycleForm', values)
     ]
 }
 
