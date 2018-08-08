@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
 import { selectTab, showTabs } from '../common/tab/tabActions'
-import { create, update } from '../billingCycle/billingCycleActions'
+import { create, update, remove } from '../billingCycle/billingCycleActions'
 
 import ContentHeader from '../common/template/contentHeader'
 import Content from '../common/template/content'
@@ -34,12 +34,21 @@ const BillingCycle = class BillingCycle extends Component {
                                 <BillingCycleList />
                             </TabContent>
                             <TabContent id='tabCreate'>
-                                <BillingCycleForm onSubmit={this.props.create} />
+                                <BillingCycleForm 
+                                    onSubmit={this.props.create}
+                                    submitName='Create' />
                             </TabContent>
                             <TabContent id='tabUpdate'>
-                                <BillingCycleForm onSubmit={this.props.update} />
+                                <BillingCycleForm 
+                                    onSubmit={this.props.update}
+                                    submitName='Update' />
                             </TabContent>
-                            <TabContent id='tabDelete'><h1>Delete</h1></TabContent>
+                            <TabContent id='tabDelete'>
+                                <BillingCycleForm 
+                                    onSubmit={this.props.remove} 
+                                    readOnly={true}
+                                    submitName='Delete' />
+                            </TabContent>
                         </TabsContent>
                     </Tabs>
                 </Content>
@@ -54,6 +63,6 @@ const BillingCycle = class BillingCycle extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({ 
-    selectTab, showTabs, create, update 
+    selectTab, showTabs, create, update , remove
 }, dispatch)
 export default connect(null, mapDispatchToProps)(BillingCycle)
