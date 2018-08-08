@@ -25,29 +25,15 @@ export function getList() {
 }
 
 export function create(values) {
-    return (dispatch) => {
-        axios.post(URL, values)
-            .then(resp => {
-                throwSuccess()
-                dispatch(init())
-            })
-            .catch(e => {
-                e.response.data.errors.forEach(error => throwError(error))
-            })
-    }
+    return submit(values, 'post')
 }
 
 export function update(billing) {
-    return (dispatch) => {
-        axios.put(`${URL}/${billing._id}`, billing)
-            .then(resp => {
-                throwSuccess()
-                dispatch(init())
-            })
-            .catch(e => {
-                e.response.data.errors.forEach(error => throwError(error))
-            })
-    }
+    return submit(billing, 'put')
+}
+
+export function remove(billing) {
+    return submit(billing, 'delete')
 }
 
 export function showUpdate(billing) {
@@ -58,14 +44,16 @@ export function showUpdate(billing) {
     ]
 }
 
-export function remove(billing) {
+function submit(values, method) {
     return (dispatch) => {
-        axios.delete(`${URL}/${billing._id}`)
+        const id = values._id ? values._id : ''
+        
+        axios[method](`${URL}/${id}`, values)
             .then(resp => {
                 throwSuccess()
                 dispatch(init())
             })
-            .catch(err => {
+            .catch(e => {
                 e.response.data.errors.forEach(error => throwError(error))
             })
     }
