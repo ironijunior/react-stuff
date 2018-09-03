@@ -20,9 +20,9 @@ class BillingCycleList extends Component {
                 <td>{bc.month}</td>
                 <td>{bc.year}</td>
                 <td>
-                    <IconButton style='warning' icon='pencil' 
+                    <IconButton style='warning' icon='pencil' type='button'
                         onClick={() => this.props.showUpdate(bc)} />
-                    <IconButton style='danger' icon='trash-o'
+                    <IconButton style='danger' icon='trash-o' type='button'
                         onClick={() => this.props.showDelete(bc)} />
                 </td>
             </tr>

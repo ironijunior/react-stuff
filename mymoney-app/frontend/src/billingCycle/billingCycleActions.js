@@ -5,7 +5,10 @@ import { showTabs, selectTab } from '../common/tab/tabActions'
 
 const URL = 'http://localhost:3003/api/billingCycles'
 
-const INITIAL_VALUES = {}
+const INITIAL_VALUES = {
+    credits: [{}],
+    debits: [{}]
+}
 
 export function init() {
     return [
