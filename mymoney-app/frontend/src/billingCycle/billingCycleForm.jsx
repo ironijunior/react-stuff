@@ -7,6 +7,7 @@ import { init } from '../billingCycle/billingCycleActions'
 
 import LabelAndInput from '../common/form/labelAndInput';
 import ItemList from './itemList'
+import Summary from './summary'
 
 class BillingCycleForm extends Component {
     
@@ -28,6 +29,8 @@ class BillingCycleForm extends Component {
                          readOnly={readOnly}
                          label='Year' placeholder='Billing cycle year' cols='12 4' />
                     
+                    <Summary credit={1000} debt={100} />
+
                     <ItemList field='credits' legend='Credits' cols='12 6' 
                         readOnly={readOnly} list={credits} />
 
