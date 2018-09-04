@@ -8,7 +8,7 @@ export default ({credit, debt}) => (
     <Grid cols='12'>
         <fieldset>
             <legend>Summary</legend>
-            <Row>
+            <Row >
                 <ValueBox cols='12 4' color='green' icon='bank' 
                     value={credit} text='Amount of Credits' />
                 <ValueBox cols='12 4' color='red' icon='credit-card' 
