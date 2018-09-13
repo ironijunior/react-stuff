@@ -20,13 +20,13 @@ BillingCycle.route('count', (req, res, next) => {
 
 //Create different route called 'summary'
 BillingCycle.route('summary', (req, res, next) => {
-    BillingCycle.aggregate({
+    BillingCycle.aggregate([{
         $project: {credit: {$sum: "$credits.value"}, debit: {$sum: "$debits.value"}}
     }, {
         $group: {_id: null, credit: {$sum: "$credit"}, debt: {$sum: "$debit"}}
     }, {
         $project: {_id: 0, credit: 1, debt: 1}
-    }, (error, result) => {
+    }]).exec((error, result) => {
         if(error) {
             res.status(500).json({code: 0, errors: [error]})
         } else {
